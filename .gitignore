@@ -115,6 +115,5 @@ dmypy.json
 .env
 
 #random
-test.py
 node_modules
 config.json
