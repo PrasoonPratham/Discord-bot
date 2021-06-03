@@ -1,4 +1,3 @@
-# bot.py
 import os
 import requests
 import json
@@ -18,8 +17,8 @@ def get_quote():
     return quote
 
 
-def get_jokes():
-    response = requests.get("https://v2.jokeapi.dev/joke/Any")
+def get_jokes(type):
+    response = requests.get(f"https://v2.jokeapi.dev/joke/{type}")
     data = json.loads(response.text)
     joke =  data["setup"]  + "\n " + "\n ~ " + "*" + data["delivery"] + "*"
     return joke
@@ -46,14 +45,33 @@ async def on_message(message):
         await message.channel.send(
             """
         Commands are 
-            $hello
-            $inspire
+            $hello : Hello!
+            $inspire : An inspirational quote
+            $joke : A funny joke**
         
         """
         )
     if message.content == "$joke":
-        joke = get_jokes()
+        joke = get_jokes("Any?blacklistFlags=nsfw,religious,political,racist,sexist")
         await message.channel.send(joke)
-
+    if message.content == "$jokedark":
+        joke = get_jokes("Dark")
+        await message.channel.send(joke)
+    if message.content == "$jokemisc":
+        joke = get_jokes("Miscellaneous")
+        await message.channel.send(joke)
+    if message.content == "$jokepun":
+        joke = get_jokes("Pun")
+        await message.channel.send(joke)
+    if message.content == "$jokespooky":
+        joke = get_jokes("Spooky")
+        await message.channel.send(joke)
+    if message.content == "$jokexmas":
+        joke = get_jokes("Christmas")
+        await message.channel.send(joke)
+    if message.content == "$jokeprog":
+        joke = get_jokes("Programming")
+        await message.channel.send(joke)
+    
 
 client.run(TOKEN)
