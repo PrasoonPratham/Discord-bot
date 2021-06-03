@@ -116,3 +116,5 @@ dmypy.json
 
 #random
 test.py
+node_modules
+config.json
